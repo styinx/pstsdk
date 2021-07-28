@@ -228,7 +228,7 @@ void test_db()
     shared_db_ptr db_3 = open_database(L"test_ansi.pst");
 
     node = 0;
-    std::tr1::shared_ptr<const nbt_page> nbt_root = db_2->read_nbt_root();
+    std::shared_ptr<const nbt_page> nbt_root = db_2->read_nbt_root();
     for(const_nodeinfo_iterator iter = nbt_root->begin();
                     iter != nbt_root->end();
                     ++iter, ++node)
@@ -242,7 +242,7 @@ void test_db()
     test_node_stream<ulonglong>(db_2->lookup_node(nid_message_store));
 
     block = 0;
-    std::tr1::shared_ptr<const bbt_page> bbt_root = db_2->read_bbt_root();
+    std::shared_ptr<const bbt_page> bbt_root = db_2->read_bbt_root();
     for(const_blockinfo_iterator iter = bbt_root->begin();
                     iter != bbt_root->end();
                     ++iter, ++block)
@@ -253,7 +253,7 @@ void test_db()
     }
   
     node = 0;
-    std::tr1::shared_ptr<const nbt_page> nbt_root2 = db_3->read_nbt_root();
+    std::shared_ptr<const nbt_page> nbt_root2 = db_3->read_nbt_root();
     for(const_nodeinfo_iterator iter = nbt_root2->begin();
                     iter != nbt_root2->end();
                     ++iter, ++node)
@@ -267,7 +267,7 @@ void test_db()
     test_node_stream<pstsdk::ulong>(db_2->lookup_node(nid_message_store));
 
     block = 0;
-    std::tr1::shared_ptr<const bbt_page> bbt_root2 = db_3->read_bbt_root();
+    std::shared_ptr<const bbt_page> bbt_root2 = db_3->read_bbt_root();
     for(const_blockinfo_iterator iter = bbt_root2->begin();
                     iter != bbt_root2->end();
                     ++iter, ++block)

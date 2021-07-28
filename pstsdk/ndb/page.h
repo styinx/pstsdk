@@ -119,7 +119,7 @@ template<typename K, typename V>
 class bt_nonleaf_page : 
     public bt_page<K,V>, 
     public btree_node_nonleaf<K,V>, 
-    public std::tr1::enable_shared_from_this<bt_nonleaf_page<K,V> >
+    public std::enable_shared_from_this<bt_nonleaf_page<K,V> >
 {
 public:
     //! \brief Construct a bt_nonleaf_page from disk
@@ -143,7 +143,7 @@ public:
 
 private:
     std::vector<std::pair<K, page_info> > m_page_info;   //!< Information about the child pages
-    mutable std::vector<std::tr1::shared_ptr<bt_page<K,V> > > m_child_pages; //!< Cached child pages
+    mutable std::vector<std::shared_ptr<bt_page<K,V> > > m_child_pages; //!< Cached child pages
 };
 
 //! \brief Contains the actual key value pairs of the btree
@@ -154,7 +154,7 @@ template<typename K, typename V>
 class bt_leaf_page : 
     public bt_page<K,V>, 
     public btree_node_leaf<K,V>, 
-    public std::tr1::enable_shared_from_this<bt_leaf_page<K,V> >
+    public std::enable_shared_from_this<bt_leaf_page<K,V> >
 {
 public:
     //! \brief Construct a leaf page from disk

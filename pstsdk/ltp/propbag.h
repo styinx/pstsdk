@@ -92,7 +92,7 @@ private:
     std::vector<byte> get_value_variable(prop_id id) const;
     void get_prop_list_impl(std::vector<prop_id>& proplist, const pc_bth_node* pbth_node) const;
 
-    std::tr1::shared_ptr<pc_bth_node> m_pbth;
+    std::shared_ptr<pc_bth_node> m_pbth;
 };
 
 } // end pstsdk namespace

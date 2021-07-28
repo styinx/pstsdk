@@ -100,8 +100,8 @@ class db_context;
 
 //! \addtogroup ndb
 //@{
-typedef std::tr1::shared_ptr<db_context> shared_db_ptr;
-typedef std::tr1::weak_ptr<db_context> weak_db_ptr;
+typedef std::shared_ptr<db_context> shared_db_ptr;
+typedef std::weak_ptr<db_context> weak_db_ptr;
 //@}
 
 //! \defgroup ndb_databaserelated Database
@@ -115,7 +115,7 @@ typedef std::tr1::weak_ptr<db_context> weak_db_ptr;
 //! data) a db_context will produce an in memory version of that data
 //! structure, with all the Unicode vs. ANSI differences abstracted away.
 //! \ingroup ndb_databaserelated
-class db_context : public std::tr1::enable_shared_from_this<db_context>
+class db_context : public std::enable_shared_from_this<db_context>
 {
 public:
     virtual ~db_context() { }
@@ -147,21 +147,21 @@ public:
     //! \throws database_corrupt (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the page trailer's ptypeRepeat != ptype
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the page's CRC doesn't match the trailer
     //! \returns The requested page
-    virtual std::tr1::shared_ptr<bbt_page> read_bbt_root() = 0;
+    virtual std::shared_ptr<bbt_page> read_bbt_root() = 0;
     //! \brief Get the root of the NBT of this context
     //! \throws unexpected_page (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the parameters of the page appear incorrect
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the page trailer's signature appears incorrect
     //! \throws database_corrupt (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the page trailer's ptypeRepeat != ptype
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the page's CRC doesn't match the trailer
     //! \returns The requested page
-    virtual std::tr1::shared_ptr<nbt_page> read_nbt_root() = 0;
+    virtual std::shared_ptr<nbt_page> read_nbt_root() = 0;
     //! \brief Open a BBT page
     //! \throws unexpected_page (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the parameters of the page appear incorrect
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the page trailer's signature appears incorrect
     //! \throws database_corrupt (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the page trailer's ptypeRepeat != ptype
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the page's CRC doesn't match the trailer
     //! \returns The requested page
-    virtual std::tr1::shared_ptr<bbt_page> read_bbt_page(const page_info& pi) = 0;
+    virtual std::shared_ptr<bbt_page> read_bbt_page(const page_info& pi) = 0;
     //! \brief Open a NBT page
     //! \param[in] pi Information about the page to open
     //! \throws unexpected_page (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the parameters of the page appear incorrect
@@ -169,7 +169,7 @@ public:
     //! \throws database_corrupt (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the page trailer's ptypeRepeat != ptype
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the page's CRC doesn't match the trailer
     //! \returns The requested page
-    virtual std::tr1::shared_ptr<nbt_page> read_nbt_page(const page_info& pi) = 0;
+    virtual std::shared_ptr<nbt_page> read_nbt_page(const page_info& pi) = 0;
     //! \brief Open a NBT leaf page
     //! \param[in] pi Information about the page to open
     //! \throws unexpected_page (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the parameters of the page appear incorrect
@@ -177,7 +177,7 @@ public:
     //! \throws database_corrupt (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the page trailer's ptypeRepeat != ptype
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the page's CRC doesn't match the trailer
     //! \returns The requested page
-    virtual std::tr1::shared_ptr<nbt_leaf_page> read_nbt_leaf_page(const page_info& pi) = 0;
+    virtual std::shared_ptr<nbt_leaf_page> read_nbt_leaf_page(const page_info& pi) = 0;
     //! \brief Open a BBT leaf page
     //! \param[in] pi Information about the page to open
     //! \throws unexpected_page (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the parameters of the page appear incorrect
@@ -185,7 +185,7 @@ public:
     //! \throws database_corrupt (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the page trailer's ptypeRepeat != ptype
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the page's CRC doesn't match the trailer
     //! \returns The requested page
-    virtual std::tr1::shared_ptr<bbt_leaf_page> read_bbt_leaf_page(const page_info& pi) = 0;
+    virtual std::shared_ptr<bbt_leaf_page> read_bbt_leaf_page(const page_info& pi) = 0;
     //! \brief Open a NBT nonleaf page
     //! \param[in] pi Information about the page to open
     //! \throws unexpected_page (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the parameters of the page appear incorrect
@@ -193,7 +193,7 @@ public:
     //! \throws database_corrupt (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the page trailer's ptypeRepeat != ptype
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the page's CRC doesn't match the trailer
     //! \returns The requested page
-    virtual std::tr1::shared_ptr<nbt_nonleaf_page> read_nbt_nonleaf_page(const page_info& pi) = 0;
+    virtual std::shared_ptr<nbt_nonleaf_page> read_nbt_nonleaf_page(const page_info& pi) = 0;
     //! \brief Open a BBT nonleaf page
     //! \param[in] pi Information about the page to open
     //! \throws unexpected_page (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the parameters of the page appear incorrect
@@ -201,7 +201,7 @@ public:
     //! \throws database_corrupt (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the page trailer's ptypeRepeat != ptype
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the page's CRC doesn't match the trailer
     //! \returns The requested page
-    virtual std::tr1::shared_ptr<bbt_nonleaf_page> read_bbt_nonleaf_page(const page_info& pi) = 0;
+    virtual std::shared_ptr<bbt_nonleaf_page> read_bbt_nonleaf_page(const page_info& pi) = 0;
     //@}
 
     //! \name Block factory functions
@@ -212,49 +212,49 @@ public:
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    std::tr1::shared_ptr<block> read_block(block_id bid) { return read_block(shared_from_this(), bid); }
+    std::shared_ptr<block> read_block(block_id bid) { return read_block(shared_from_this(), bid); }
     //! \brief Open a data_block in this context
     //! \param[in] bid The id of the block to open
     //! \throws unexpected_block (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the parameters of the block appear incorrect
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    std::tr1::shared_ptr<data_block> read_data_block(block_id bid) { return read_data_block(shared_from_this(), bid); }
+    std::shared_ptr<data_block> read_data_block(block_id bid) { return read_data_block(shared_from_this(), bid); }
     //! \brief Open a extended_block in this context
     //! \param[in] bid The id of the block to open
     //! \throws unexpected_block (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the parameters of the block appear incorrect
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    std::tr1::shared_ptr<extended_block> read_extended_block(block_id bid) { return read_extended_block(shared_from_this(), bid); }
+    std::shared_ptr<extended_block> read_extended_block(block_id bid) { return read_extended_block(shared_from_this(), bid); }
     //! \brief Open a external_block in this context
     //! \param[in] bid The id of the block to open
     //! \throws unexpected_block (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the parameters of the block appear incorrect
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    std::tr1::shared_ptr<external_block> read_external_block(block_id bid) { return read_external_block(shared_from_this(), bid); }
+    std::shared_ptr<external_block> read_external_block(block_id bid) { return read_external_block(shared_from_this(), bid); }
     //! \brief Open a subnode_block in this context
     //! \param[in] bid The id of the block to open
     //! \throws unexpected_block (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the parameters of the block appear incorrect
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    std::tr1::shared_ptr<subnode_block> read_subnode_block(block_id bid) { return read_subnode_block(shared_from_this(), bid); }
+    std::shared_ptr<subnode_block> read_subnode_block(block_id bid) { return read_subnode_block(shared_from_this(), bid); }
     //! \brief Open a subnode_leaf_block in this context
     //! \param[in] bid The id of the block to open
     //! \throws unexpected_block (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the parameters of the block appear incorrect
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    std::tr1::shared_ptr<subnode_leaf_block> read_subnode_leaf_block(block_id bid) { return read_subnode_leaf_block(shared_from_this(), bid); }
+    std::shared_ptr<subnode_leaf_block> read_subnode_leaf_block(block_id bid) { return read_subnode_leaf_block(shared_from_this(), bid); }
     //! \brief Open a subnode_nonleaf_block in this context
     //! \param[in] bid The id of the block to open
     //! \throws unexpected_block (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the parameters of the block appear incorrect
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    std::tr1::shared_ptr<subnode_nonleaf_block> read_subnode_nonleaf_block(block_id bid) { return read_subnode_nonleaf_block(shared_from_this(), bid); }
+    std::shared_ptr<subnode_nonleaf_block> read_subnode_nonleaf_block(block_id bid) { return read_subnode_nonleaf_block(shared_from_this(), bid); }
     //! \brief Open a block in the specified context
     //! \param[in] parent The context to open this block in. It must be either this context or a child context of this context.
     //! \param[in] bid The id of the block to open
@@ -262,7 +262,7 @@ public:
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    virtual std::tr1::shared_ptr<block> read_block(const shared_db_ptr& parent, block_id bid) = 0;
+    virtual std::shared_ptr<block> read_block(const shared_db_ptr& parent, block_id bid) = 0;
     //! \brief Open a data_block in the specified context
     //! \param[in] parent The context to open this block in. It must be either this context or a child context of this context.
     //! \param[in] bid The id of the block to open
@@ -270,7 +270,7 @@ public:
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    virtual std::tr1::shared_ptr<data_block> read_data_block(const shared_db_ptr& parent, block_id bid) = 0;
+    virtual std::shared_ptr<data_block> read_data_block(const shared_db_ptr& parent, block_id bid) = 0;
     //! \brief Open an extended_block in the specified context
     //! \param[in] parent The context to open this block in. It must be either this context or a child context of this context.
     //! \param[in] bid The id of the block to open
@@ -278,7 +278,7 @@ public:
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    virtual std::tr1::shared_ptr<extended_block> read_extended_block(const shared_db_ptr& parent, block_id bid) = 0;
+    virtual std::shared_ptr<extended_block> read_extended_block(const shared_db_ptr& parent, block_id bid) = 0;
     //! \brief Open a external_block in the specified context
     //! \param[in] parent The context to open this block in. It must be either this context or a child context of this context.
     //! \param[in] bid The id of the block to open
@@ -286,7 +286,7 @@ public:
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    virtual std::tr1::shared_ptr<external_block> read_external_block(const shared_db_ptr& parent, block_id bid) = 0;
+    virtual std::shared_ptr<external_block> read_external_block(const shared_db_ptr& parent, block_id bid) = 0;
     //! \brief Open a subnode_block in the specified context
     //! \param[in] parent The context to open this block in. It must be either this context or a child context of this context.
     //! \param[in] bid The id of the block to open
@@ -294,7 +294,7 @@ public:
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    virtual std::tr1::shared_ptr<subnode_block> read_subnode_block(const shared_db_ptr& parent, block_id bid) = 0;
+    virtual std::shared_ptr<subnode_block> read_subnode_block(const shared_db_ptr& parent, block_id bid) = 0;
     //! \brief Open a subnode_leaf_block in the specified context
     //! \param[in] parent The context to open this block in. It must be either this context or a child context of this context.
     //! \param[in] bid The id of the block to open
@@ -302,7 +302,7 @@ public:
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    virtual std::tr1::shared_ptr<subnode_leaf_block> read_subnode_leaf_block(const shared_db_ptr& parent, block_id bid) = 0;
+    virtual std::shared_ptr<subnode_leaf_block> read_subnode_leaf_block(const shared_db_ptr& parent, block_id bid) = 0;
     //! \brief Open a subnode_nonleaf_block in the specified context
     //! \param[in] parent The context to open this block in. It must be either this context or a child context of this context.
     //! \param[in] bid The id of the block to open
@@ -310,7 +310,7 @@ public:
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    virtual std::tr1::shared_ptr<subnode_nonleaf_block> read_subnode_nonleaf_block(const shared_db_ptr& parent, block_id bid) = 0;
+    virtual std::shared_ptr<subnode_nonleaf_block> read_subnode_nonleaf_block(const shared_db_ptr& parent, block_id bid) = 0;
 
     //! \brief Open a block in this context
     //! \param[in] bi Information about the block to open
@@ -318,49 +318,49 @@ public:
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    std::tr1::shared_ptr<block> read_block(const block_info& bi) { return read_block(shared_from_this(), bi); }
+    std::shared_ptr<block> read_block(const block_info& bi) { return read_block(shared_from_this(), bi); }
     //! \brief Open a data_block in this context
     //! \param[in] bi Information about the block to open
     //! \throws unexpected_block (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the parameters of the block appear incorrect
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    std::tr1::shared_ptr<data_block> read_data_block(const block_info& bi) { return read_data_block(shared_from_this(), bi); }
+    std::shared_ptr<data_block> read_data_block(const block_info& bi) { return read_data_block(shared_from_this(), bi); }
     //! \brief Open a extended_block in this context
     //! \param[in] bi Information about the block to open
     //! \throws unexpected_block (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the parameters of the block appear incorrect
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    std::tr1::shared_ptr<extended_block> read_extended_block(const block_info& bi) { return read_extended_block(shared_from_this(), bi); }
+    std::shared_ptr<extended_block> read_extended_block(const block_info& bi) { return read_extended_block(shared_from_this(), bi); }
     //! \brief Open a block in this context
     //! \param[in] bi Information about the block to open
     //! \throws unexpected_block (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the parameters of the block appear incorrect
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    std::tr1::shared_ptr<external_block> read_external_block(const block_info& bi) { return read_external_block(shared_from_this(), bi); }
+    std::shared_ptr<external_block> read_external_block(const block_info& bi) { return read_external_block(shared_from_this(), bi); }
     //! \brief Open a subnode_block in this context
     //! \param[in] bi Information about the block to open
     //! \throws unexpected_block (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the parameters of the block appear incorrect
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    std::tr1::shared_ptr<subnode_block> read_subnode_block(const block_info& bi) { return read_subnode_block(shared_from_this(), bi); }
+    std::shared_ptr<subnode_block> read_subnode_block(const block_info& bi) { return read_subnode_block(shared_from_this(), bi); }
     //! \brief Open a subnode_leaf_block in this context
     //! \param[in] bi Information about the block to open
     //! \throws unexpected_block (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the parameters of the block appear incorrect
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    std::tr1::shared_ptr<subnode_leaf_block> read_subnode_leaf_block(const block_info& bi) { return read_subnode_leaf_block(shared_from_this(), bi); }
+    std::shared_ptr<subnode_leaf_block> read_subnode_leaf_block(const block_info& bi) { return read_subnode_leaf_block(shared_from_this(), bi); }
     //! \brief Open a subnode_nonleaf_block in this context
     //! \param[in] bi Information about the block to open
     //! \throws unexpected_block (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the parameters of the block appear incorrect
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    std::tr1::shared_ptr<subnode_nonleaf_block> read_subnode_nonleaf_block(const block_info& bi) { return read_subnode_nonleaf_block(shared_from_this(), bi); }
+    std::shared_ptr<subnode_nonleaf_block> read_subnode_nonleaf_block(const block_info& bi) { return read_subnode_nonleaf_block(shared_from_this(), bi); }
     //! \brief Open a block in the specified context
     //! \param[in] parent The context to open this block in. It must be either this context or a child context of this context.
     //! \param[in] bi Information about the block to open
@@ -368,7 +368,7 @@ public:
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    virtual std::tr1::shared_ptr<block> read_block(const shared_db_ptr& parent, const block_info& bi) = 0;
+    virtual std::shared_ptr<block> read_block(const shared_db_ptr& parent, const block_info& bi) = 0;
     //! \brief Open a data_block in the specified context
     //! \param[in] parent The context to open this block in. It must be either this context or a child context of this context.
     //! \param[in] bi Information about the block to open
@@ -376,7 +376,7 @@ public:
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    virtual std::tr1::shared_ptr<data_block> read_data_block(const shared_db_ptr& parent, const block_info& bi) = 0;
+    virtual std::shared_ptr<data_block> read_data_block(const shared_db_ptr& parent, const block_info& bi) = 0;
     //! \brief Open a extended_block in the specified context
     //! \param[in] parent The context to open this block in. It must be either this context or a child context of this context.
     //! \param[in] bi Information about the block to open
@@ -384,7 +384,7 @@ public:
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    virtual std::tr1::shared_ptr<extended_block> read_extended_block(const shared_db_ptr& parent, const block_info& bi) = 0;
+    virtual std::shared_ptr<extended_block> read_extended_block(const shared_db_ptr& parent, const block_info& bi) = 0;
     //! \brief Open a external_block in the specified context
     //! \param[in] parent The context to open this block in. It must be either this context or a child context of this context.
     //! \param[in] bi Information about the block to open
@@ -392,7 +392,7 @@ public:
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    virtual std::tr1::shared_ptr<external_block> read_external_block(const shared_db_ptr& parent, const block_info& bi) = 0;
+    virtual std::shared_ptr<external_block> read_external_block(const shared_db_ptr& parent, const block_info& bi) = 0;
     //! \brief Open a subnode_block in the specified context
     //! \param[in] parent The context to open this block in. It must be either this context or a child context of this context.
     //! \param[in] bi Information about the block to open
@@ -400,7 +400,7 @@ public:
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    virtual std::tr1::shared_ptr<subnode_block> read_subnode_block(const shared_db_ptr& parent, const block_info& bi) = 0;
+    virtual std::shared_ptr<subnode_block> read_subnode_block(const shared_db_ptr& parent, const block_info& bi) = 0;
     //! \brief Open a subnode_leaf_block in the specified context
     //! \param[in] parent The context to open this block in. It must be either this context or a child context of this context.
     //! \param[in] bi Information about the block to open
@@ -408,7 +408,7 @@ public:
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    virtual std::tr1::shared_ptr<subnode_leaf_block> read_subnode_leaf_block(const shared_db_ptr& parent, const block_info& bi) = 0;
+    virtual std::shared_ptr<subnode_leaf_block> read_subnode_leaf_block(const shared_db_ptr& parent, const block_info& bi) = 0;
     //! \brief Open a subnode_nonleaf_block in the specified context
     //! \param[in] parent The context to open this block in. It must be either this context or a child context of this context.
     //! \param[in] bi Information about the block to open
@@ -416,18 +416,18 @@ public:
     //! \throws sig_mismatch (\ref PSTSDK_VALIDATION_LEVEL_WEAK) If the block trailer's signature appears incorrect
     //! \throws crc_fail (\ref PSTSDK_VALIDATION_LEVEL_WEAK "PSTSDK_VALIDATION_LEVEL_FULL") If the block's CRC doesn't match the trailer
     //! \returns The requested block
-    virtual std::tr1::shared_ptr<subnode_nonleaf_block> read_subnode_nonleaf_block(const shared_db_ptr& parent, const block_info& bi) = 0;
+    virtual std::shared_ptr<subnode_nonleaf_block> read_subnode_nonleaf_block(const shared_db_ptr& parent, const block_info& bi) = 0;
     //@}
 
 //! \cond write_api
-    std::tr1::shared_ptr<external_block> create_external_block(size_t size) { return create_external_block(shared_from_this(), size); }
-    std::tr1::shared_ptr<extended_block> create_extended_block(std::tr1::shared_ptr<external_block>& pblock) { return create_extended_block(shared_from_this(), pblock); }
-    std::tr1::shared_ptr<extended_block> create_extended_block(std::tr1::shared_ptr<extended_block>& pblock) { return create_extended_block(shared_from_this(), pblock); }
-    std::tr1::shared_ptr<extended_block> create_extended_block(size_t size) { return create_extended_block(shared_from_this(), size); }
-    virtual std::tr1::shared_ptr<external_block> create_external_block(const shared_db_ptr& parent, size_t size) = 0;
-    virtual std::tr1::shared_ptr<extended_block> create_extended_block(const shared_db_ptr& parent, std::tr1::shared_ptr<external_block>& pblock) = 0;
-    virtual std::tr1::shared_ptr<extended_block> create_extended_block(const shared_db_ptr& parent, std::tr1::shared_ptr<extended_block>& pblock) = 0;
-    virtual std::tr1::shared_ptr<extended_block> create_extended_block(const shared_db_ptr& parent, size_t size) = 0;
+    std::shared_ptr<external_block> create_external_block(size_t size) { return create_external_block(shared_from_this(), size); }
+    std::shared_ptr<extended_block> create_extended_block(std::shared_ptr<external_block>& pblock) { return create_extended_block(shared_from_this(), pblock); }
+    std::shared_ptr<extended_block> create_extended_block(std::shared_ptr<extended_block>& pblock) { return create_extended_block(shared_from_this(), pblock); }
+    std::shared_ptr<extended_block> create_extended_block(size_t size) { return create_extended_block(shared_from_this(), size); }
+    virtual std::shared_ptr<external_block> create_external_block(const shared_db_ptr& parent, size_t size) = 0;
+    virtual std::shared_ptr<extended_block> create_extended_block(const shared_db_ptr& parent, std::shared_ptr<external_block>& pblock) = 0;
+    virtual std::shared_ptr<extended_block> create_extended_block(const shared_db_ptr& parent, std::shared_ptr<extended_block>& pblock) = 0;
+    virtual std::shared_ptr<extended_block> create_extended_block(const shared_db_ptr& parent, size_t size) = 0;
 
     // header functions
     virtual block_id alloc_bid(bool is_internal) = 0;

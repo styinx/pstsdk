@@ -7,11 +7,8 @@
 #define PSTSDK_LTP_TABLE_H
 
 #include <vector>
-#if __GNUC__
-# include <tr1/unordered_map>
-#else
-# include <unordered_map>
-#endif
+#include <unordered_map>
+
 #include <boost/iterator/iterator_facade.hpp>
 
 #include "pstsdk/util/primitives.h"
@@ -27,8 +24,8 @@ namespace pstsdk
 class table_impl;
 //! \addtogroup ltp_objectrelated
 //@{
-typedef std::tr1::shared_ptr<table_impl> table_ptr;
-typedef std::tr1::shared_ptr<const table_impl> const_table_ptr;
+typedef std::shared_ptr<table_impl> table_ptr;
+typedef std::shared_ptr<const table_impl> const_table_ptr;
 //@}
 
 //! \brief Open the specified node as a table
@@ -137,7 +134,7 @@ private:
 //! underlying table type. This is the table implementation "interface" class.
 //! \sa [MS-PST] 2.3.4
 //! \ingroup ltp_objectrelated
-class table_impl : public std::tr1::enable_shared_from_this<table_impl>
+class table_impl : public std::enable_shared_from_this<table_impl>
 {
 public:
     virtual ~table_impl() { }
@@ -260,15 +257,15 @@ private:
     basic_table(const node& n);
     basic_table(const node& n, alias_tag);
 
-    std::tr1::shared_ptr<bth_node<row_id, T> > m_prows;
+    std::shared_ptr<bth_node<row_id, T> > m_prows;
 
     // only one of the following two items is valid
     std::vector<byte> m_vec_rowarray;
-    std::tr1::shared_ptr<node> m_pnode_rowarray;
+    std::shared_ptr<node> m_pnode_rowarray;
 
-    std::tr1::unordered_map<prop_id, disk::column_description> m_columns; 
-    typedef std::tr1::unordered_map<prop_id, disk::column_description>::iterator column_iter;
-    typedef std::tr1::unordered_map<prop_id, disk::column_description>::const_iterator const_column_iter;
+    std::unordered_map<prop_id, disk::column_description> m_columns;
+    typedef std::unordered_map<prop_id, disk::column_description>::iterator column_iter;
+    typedef std::unordered_map<prop_id, disk::column_description>::const_iterator const_column_iter;
 
     ushort m_offsets[disk::tc_offsets_max];
 
@@ -475,7 +472,7 @@ inline std::vector<pstsdk::byte> pstsdk::const_table_row::get_value_variable(pro
 
 inline pstsdk::hnid_stream_device pstsdk::const_table_row::open_prop_stream(prop_id id)
 {
-    return (std::tr1::const_pointer_cast<table_impl>(m_table))->open_cell_stream(m_position, id);
+    return (std::const_pointer_cast<table_impl>(m_table))->open_cell_stream(m_position, id);
 }
 
 template<typename T>

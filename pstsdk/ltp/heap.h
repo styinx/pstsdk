@@ -50,7 +50,7 @@ template<typename K, typename V>
 class bth_node;
 
 class heap_impl;
-typedef std::tr1::shared_ptr<heap_impl> heap_ptr;
+typedef std::shared_ptr<heap_impl> heap_ptr;
 
 //! \brief Defines a stream device for a heap allocation for use by boost iostream
 //!
@@ -90,7 +90,7 @@ typedef boost::iostreams::stream<hid_stream_device> hid_stream;
 //! objects. As more and more "child" objects are created and opened from
 //! inside the heap, they will reference the heap_impl as appropriate.
 //! \ingroup ltp_heaprelated
-class heap_impl : public std::tr1::enable_shared_from_this<heap_impl>
+class heap_impl : public std::enable_shared_from_this<heap_impl>
 {
 public:
     //! \brief Get the size of the given allocation
@@ -161,7 +161,7 @@ public:
     //! \param[in] root The root allocation of this BTH
     //! \returns The BTH object
     template<typename K, typename V>
-    std::tr1::shared_ptr<bth_node<K,V> > open_bth(heap_id root);
+    std::shared_ptr<bth_node<K,V> > open_bth(heap_id root);
 
     friend class heap;
 
@@ -261,7 +261,7 @@ public:
     
     //! \copydoc heap_impl::open_bth()
     template<typename K, typename V>
-    std::tr1::shared_ptr<bth_node<K,V> > open_bth(heap_id root)
+    std::shared_ptr<bth_node<K,V> > open_bth(heap_id root)
         { return m_pheap->open_bth<K,V>(root); }
 
 private:
@@ -301,16 +301,16 @@ public:
     //! \throws logic_error If the specified key/value type sizes do not match what is in the BTH header
     //! \param[in] h The heap to open out of
     //! \param[in] bth_root The allocation containing the bth header
-    static std::tr1::shared_ptr<bth_node<K,V> > open_root(const heap_ptr& h, heap_id bth_root);
+    static std::shared_ptr<bth_node<K,V> > open_root(const heap_ptr& h, heap_id bth_root);
     //! \brief Open a non-leaf BTH node
     //! \param[in] h The heap to open out of
     //! \param[in] id The id to interpret as a non-leaf BTH node
     //! \param[in] level The level of this non-leaf node (must be non-zero)
-    static std::tr1::shared_ptr<bth_nonleaf_node<K,V> > open_nonleaf(const heap_ptr& h, heap_id id, ushort level);
+    static std::shared_ptr<bth_nonleaf_node<K,V> > open_nonleaf(const heap_ptr& h, heap_id id, ushort level);
     //! \brief Open a leaf BTH node
     //! \param[in] h The heap to open out of
     //! \param[in] id The id to interpret as a leaf BTH node   
-    static std::tr1::shared_ptr<bth_leaf_node<K,V> > open_leaf(const heap_ptr& h, heap_id id);
+    static std::shared_ptr<bth_leaf_node<K,V> > open_leaf(const heap_ptr& h, heap_id id);
 
     //! \brief Construct a bth_node object
     //! \param[in] h The heap to open out of
@@ -386,7 +386,7 @@ public:
 
 private:
     std::vector<std::pair<K, heap_id> > m_bth_info;
-    mutable std::vector<std::tr1::shared_ptr<bth_node<K,V> > > m_child_nodes;
+    mutable std::vector<std::shared_ptr<bth_node<K,V> > > m_child_nodes;
 };
 
 //! \brief Contains the actual key value pairs of the BTH
@@ -429,7 +429,7 @@ private:
 } // end pstsdk namespace
 
 template<typename K, typename V>
-inline std::tr1::shared_ptr<pstsdk::bth_node<K,V> > pstsdk::bth_node<K,V>::open_root(const heap_ptr& h, heap_id bth_root)
+inline std::shared_ptr<pstsdk::bth_node<K,V> > pstsdk::bth_node<K,V>::open_root(const heap_ptr& h, heap_id bth_root)
 {
     disk::bth_header* pheader;
     std::vector<byte> buffer(sizeof(disk::bth_header));
@@ -455,7 +455,7 @@ inline std::tr1::shared_ptr<pstsdk::bth_node<K,V> > pstsdk::bth_node<K,V>::open_
 }
 
 template<typename K, typename V>
-inline std::tr1::shared_ptr<pstsdk::bth_nonleaf_node<K,V> > pstsdk::bth_node<K,V>::open_nonleaf(const heap_ptr& h, heap_id id, ushort level)
+inline std::shared_ptr<pstsdk::bth_nonleaf_node<K,V> > pstsdk::bth_node<K,V>::open_nonleaf(const heap_ptr& h, heap_id id, ushort level)
 {
     uint num_entries = h->size(id) / sizeof(disk::bth_nonleaf_entry<K>);
     std::vector<byte> buffer(h->size(id));
@@ -472,14 +472,14 @@ inline std::tr1::shared_ptr<pstsdk::bth_nonleaf_node<K,V> > pstsdk::bth_node<K,V
     }
 
 #ifndef BOOST_NO_RVALUE_REFERENCES
-    return std::tr1::shared_ptr<bth_nonleaf_node<K,V> >(new bth_nonleaf_node<K,V>(h, id, level, std::move(child_nodes)));
+    return std::shared_ptr<bth_nonleaf_node<K,V> >(new bth_nonleaf_node<K,V>(h, id, level, std::move(child_nodes)));
 #else
-    return std::tr1::shared_ptr<bth_nonleaf_node<K,V> >(new bth_nonleaf_node<K,V>(h, id, level, child_nodes));
+    return std::shared_ptr<bth_nonleaf_node<K,V> >(new bth_nonleaf_node<K,V>(h, id, level, child_nodes));
 #endif
 }
     
 template<typename K, typename V>
-inline std::tr1::shared_ptr<pstsdk::bth_leaf_node<K,V> > pstsdk::bth_node<K,V>::open_leaf(const heap_ptr& h, heap_id id)
+inline std::shared_ptr<pstsdk::bth_leaf_node<K,V> > pstsdk::bth_node<K,V>::open_leaf(const heap_ptr& h, heap_id id)
 {
     std::vector<std::pair<K, V> > entries; 
 
@@ -498,15 +498,15 @@ inline std::tr1::shared_ptr<pstsdk::bth_leaf_node<K,V> > pstsdk::bth_node<K,V>::
             entries.push_back(std::make_pair(pbth_leaf_node->entries[i].key, pbth_leaf_node->entries[i].value));
         }
 #ifndef BOOST_NO_RVALUE_REFERENCES
-        return std::tr1::shared_ptr<bth_leaf_node<K,V> >(new bth_leaf_node<K,V>(h, id, std::move(entries)));
+        return std::shared_ptr<bth_leaf_node<K,V> >(new bth_leaf_node<K,V>(h, id, std::move(entries)));
 #else
-        return std::tr1::shared_ptr<bth_leaf_node<K,V> >(new bth_leaf_node<K,V>(h, id, entries));
+        return std::shared_ptr<bth_leaf_node<K,V> >(new bth_leaf_node<K,V>(h, id, entries));
 #endif
     }
     else
     {
         // id == 0 means an empty tree
-        return std::tr1::shared_ptr<bth_leaf_node<K,V> >(new bth_leaf_node<K,V>(h, id, entries));
+        return std::shared_ptr<bth_leaf_node<K,V> >(new bth_leaf_node<K,V>(h, id, entries));
     }
 }
 
@@ -707,7 +707,7 @@ inline std::vector<pstsdk::byte> pstsdk::heap_impl::read(heap_id id) const
 }
 
 template<typename K, typename V>
-inline std::tr1::shared_ptr<pstsdk::bth_node<K,V> > pstsdk::heap_impl::open_bth(heap_id root)
+inline std::shared_ptr<pstsdk::bth_node<K,V> > pstsdk::heap_impl::open_bth(heap_id root)
 { 
     return bth_node<K,V>::open_root(shared_from_this(), root); 
 }

@@ -345,8 +345,8 @@ private:
     message& operator=(const message&); // = delete
 
     property_bag m_bag;
-    mutable std::tr1::shared_ptr<table> m_attachment_table;
-    mutable std::tr1::shared_ptr<table> m_recipient_table;
+    mutable std::shared_ptr<table> m_attachment_table;
+    mutable std::shared_ptr<table> m_recipient_table;
 };
 
 class message_transform_row : public std::unary_function<const_table_row, message>

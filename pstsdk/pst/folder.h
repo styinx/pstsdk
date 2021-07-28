@@ -124,7 +124,7 @@ public:
 private:
     shared_db_ptr m_db;
     property_bag m_bag;
-    mutable std::tr1::shared_ptr<table> m_contents_table;
+    mutable std::shared_ptr<table> m_contents_table;
 };
 
 //! \brief Defines a transform from a row of a hierarchy table to a search_folder
@@ -301,9 +301,9 @@ public:
 private:
     shared_db_ptr m_db;
     property_bag m_bag;
-    mutable std::tr1::shared_ptr<table> m_contents_table;
-    mutable std::tr1::shared_ptr<table> m_associated_contents_table;
-    mutable std::tr1::shared_ptr<table> m_hierarchy_table;
+    mutable std::shared_ptr<table> m_contents_table;
+    mutable std::shared_ptr<table> m_associated_contents_table;
+    mutable std::shared_ptr<table> m_hierarchy_table;
 };
 
 //! \brief Defines a transform from a node_info to a folder

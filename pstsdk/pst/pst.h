@@ -166,8 +166,8 @@ public:
 
 private:
     shared_db_ptr m_db;                             //!< The official shared_db_ptr used by this store
-    mutable std::tr1::shared_ptr<property_bag> m_bag;    //!< The official property bag of this store object
-    mutable std::tr1::shared_ptr<name_id_map> m_map;     //!< The official named property map of this store object
+    mutable std::shared_ptr<property_bag> m_bag;    //!< The official property bag of this store object
+    mutable std::shared_ptr<name_id_map> m_map;     //!< The official named property map of this store object
 };
 
 } // end pstsdk namespace
