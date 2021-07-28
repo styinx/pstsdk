@@ -12,6 +12,7 @@
 #include <vector>
 #include <algorithm>
 #include <memory>
+#include <functional>
 #include <cassert>
 #include <boost/iterator/transform_iterator.hpp>
 #include <boost/iostreams/concepts.hpp>
@@ -234,7 +235,7 @@ private:
 //! used later with the boost iterator library to define a proxy iterator
 //! for the subnodes of a node.
 //! \ingroup ndb_noderelated
-class subnode_transform_info : public std::unary_function<subnode_info, node>
+class subnode_transform_info : public std::function<subnode_info(node)>
 {
 public:
     //! \brief Initialize this functor with the container node involved

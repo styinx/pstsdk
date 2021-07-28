@@ -13,6 +13,7 @@
 #define PSTSDK_PST_FOLDER_H
 
 #include <algorithm>
+#include <functional>
 #include <boost/iterator/filter_iterator.hpp>
 #include <boost/iterator/transform_iterator.hpp>
 
@@ -132,7 +133,7 @@ private:
 //! Used by the boost iterator library to provide friendly iterators over
 //! search_folders
 //! \ingroup pst_folderrelated
-class search_folder_transform_row : public std::unary_function<const_table_row, search_folder>
+class search_folder_transform_row : public std::function<const_table_row(search_folder)>
 {
 public:
     //! \brief Construct a search_folder_transform object
@@ -154,7 +155,7 @@ class folder;
 //!
 //! Used by the boost iterator library to provide iterators over folder objects
 //! \ingroup pst_folderrelated
-class folder_transform_row : public std::unary_function<const_table_row, folder>
+class folder_transform_row : public std::function<const_table_row(folder)>
 {
 public:
     //! \brief Construct a folder_transform_row object
@@ -310,7 +311,7 @@ private:
 //!
 //! Used by the boost iterator library to provide iterators over folder objects
 //! \ingroup pst_folderrelated
-class folder_transform_info : public std::unary_function<node_info, folder>
+class folder_transform_info : public std::function<node_info(folder)>
 {
 public:
     //! \brief Construct a folder_transform_info object
@@ -369,7 +370,7 @@ inline pstsdk::table& pstsdk::search_folder::get_contents_table()
 namespace compiler_workarounds
 {
 
-struct folder_name_equal : public std::unary_function<bool, const pstsdk::folder&>
+struct folder_name_equal : public std::function<bool(const pstsdk::folder&)>
 {
     folder_name_equal(const std::wstring& name) : m_name(name) { }
     bool operator()(const pstsdk::folder& f) const { return f.get_name() == m_name; }
