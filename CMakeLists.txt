@@ -1,6 +1,6 @@
 # It worth requiring an older version here, if anyone has problems with
 # 2.8.  But that means finding somebody to test against those versions...
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.9)
 
 # Declare our project name and version.
 project(pstsdk)
@@ -16,7 +16,7 @@ include_directories("${PROJECT_SOURCE_DIR}")
 
 # Set up our compiler flags.
 if(MSVC)
-  set(CMAKE_CXX_FLAGS "/DPSTSDK_VALIDATION_LEVEL_FULL /EHsc /nologo /W4 /WX")
+  set(CMAKE_CXX_FLAGS "/DPSTSDK_VALIDATION_LEVEL_FULL /EHsc /nologo /W4")
 elseif(CMAKE_COMPILER_IS_GNUCC)
   set(CMAKE_CXX_FLAGS "-Wall -Werror -g -DPSTSDK_VALIDATION_LEVEL_FULL -std=c++0x")
 endif()

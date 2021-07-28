@@ -268,7 +268,7 @@ inline std::vector<prop_id> pstsdk::name_id_map::get_prop_list() const
     std::vector<prop_id> props;
 
     m_entry_stream.seekg(0, std::ios_base::beg);
-    while(m_entry_stream.read((char*)&entry, sizeof(entry)) != 0)
+    while(m_entry_stream.read((char*)&entry, sizeof(entry)))
         props.push_back(nameid_get_prop_index(entry) + 0x8000);
 
     m_entry_stream.clear();
@@ -312,7 +312,7 @@ inline pstsdk::prop_id pstsdk::name_id_map::lookup(const named_prop& p) const
 
     prop_stream bucket(const_cast<name_id_map*>(this)->m_bag.open_prop_stream(get_bucket_prop(hash_value)));
     disk::nameid_hash_entry entry;
-    while(bucket.read((char*)&entry, sizeof(entry)) != 0)
+    while(bucket.read((char*)&entry, sizeof(entry)))
     {
         if( (entry.hash_base == hash_base) &&
             (disk::nameid_is_string(entry) == p.is_string()) &&
